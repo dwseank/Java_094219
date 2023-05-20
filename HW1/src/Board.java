@@ -14,7 +14,7 @@ public class Board {
     /**
      * Constructs Board object based on a string.
      * This is the initial board and also determines the size of all boards in the game.
-     * Additionally,
+     * Additionally, initializes goalPositions array.
      *
      * @param boardString string representation of the board
      */
