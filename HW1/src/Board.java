@@ -206,9 +206,8 @@ public class Board {
                         int nextValue = tiles[k][j].getValue();
                         if (nextValue == 0) // Empty tile
                             continue;
-                        int[] nextGoalPos = goalPositions[nextValue - 1];
-                        int nextGoalRow = nextGoalPos[0];
-                        int nextGoalColumn = nextGoalPos[1];
+                        int nextGoalRow = goalPositions[nextValue - 1][0];
+                        int nextGoalColumn = goalPositions[nextValue - 1][1];
 
                         if (j == nextGoalColumn && i > nextGoalRow) {
                             conflicts++;
