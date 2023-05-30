@@ -12,6 +12,6 @@ public class Quotient extends TwoFunction {
 
     @Override
     public Quotient derivative() {
-        return new Quotient(new Difference(new Product(function1.derivative(), function2), new Product(function1, function2.derivative())), new Power(function2, 2));
+        return new Quotient(new Difference(new Product(function1.derivative(), function2), new Product(function2.derivative(), function1)), new Power(function2, 2));
     }
 }
