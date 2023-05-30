@@ -39,8 +39,8 @@ public class DateTime extends Date {
 
     /**
      * Returns a unique hash code based on the values stored in DateTime.
-     * <p>Hash is sum of minutes passed since 01/01/0000 00:00 to absolute date and time
-     * + 1.5 million to avoid conflicts with superclass.</p>
+     * Hash is sum of minutes passed since 01/01/0000 00:00 to absolute date and time
+     * + 1.5 million shift to avoid conflicts with superclass.
      * Hash code is negative for negative years.
      *
      * @return unique hash code
