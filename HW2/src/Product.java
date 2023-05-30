@@ -12,6 +12,6 @@ public class Product extends TwoFunction {
 
     @Override
     public Sum derivative() {
-        return new Sum(new Product(function1.derivative(), function2), new Product(function1, function2.derivative()));
+        return new Sum(new Product(function1.derivative(), function2), new Product(function2.derivative(), function1));
     }
 }
