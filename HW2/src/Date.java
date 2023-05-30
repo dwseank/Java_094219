@@ -37,7 +37,7 @@ public class Date {
 
     /**
      * Returns a unique hash code based on the values stored in Date.
-     * <p>Hash is sum of days passed since 01/01/0000 to absolute date.</p>
+     * Hash is sum of days passed since 01/01/0000 to absolute date.
      * Hash code is negative for negative years.
      *
      * @return unique hash code
