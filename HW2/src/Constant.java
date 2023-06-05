@@ -11,4 +11,9 @@ public class Constant extends Polynomial {
     public Constant(double value) {
         super(value);
     }
+    
+    @Override
+    public Constant derivative() {
+        return new Constant(0);
+    }
 }
