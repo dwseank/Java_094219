@@ -1,5 +1,5 @@
 /** A quotient function made up of a numerator function and a denominator function. */
-public class Quotient extends TwoFunction {
+public class Quotient extends MultiFunction {
     /**
      * Constructs a quotient function.
      *
@@ -12,6 +12,10 @@ public class Quotient extends TwoFunction {
 
     @Override
     public Quotient derivative() {
-        return new Quotient(new Difference(new Product(function1.derivative(), function2), new Product(function2.derivative(), function1)), new Power(function2, 2));
+        Product leftProduct = new Product(functions[0].derivative(), functions[1]);
+        Product rightProduct = new Product(functions[1].derivative(), functions[0]);
+        Difference numerator = new Difference(leftProduct, rightProduct);
+        Power denominator = new Power(functions[1], 2);
+        return new Quotient(numerator, denominator);
     }
 }
