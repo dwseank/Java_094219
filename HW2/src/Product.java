@@ -1,17 +1,19 @@
 /** A function that is the product of multiplying 2 functions. */
-public class Product extends TwoFunction {
+public class Product extends MultiProduct {
     /**
      * Constructs product of 2 functions.
      *
-     * @param leftFunction the left function
-     * @param rightFunction the right function
+     * @param firstFunction the first function
+     * @param secondFunction the second function
      */
-    public Product(Function leftFunction, Function rightFunction) {
-        super('*', leftFunction, rightFunction);
+    public Product(Function firstFunction, Function secondFunction) {
+        super(firstFunction, secondFunction);
     }
 
     @Override
     public Sum derivative() {
-        return new Sum(new Product(function1.derivative(), function2), new Product(function2.derivative(), function1));
+        Product firstProduct = new Product(functions[0].derivative(), functions[1]);
+        Product secondProduct = new Product(functions[1].derivative(), functions[0]);
+        return new Sum(firstProduct, secondProduct);
     }
 }
