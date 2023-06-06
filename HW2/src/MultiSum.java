@@ -3,16 +3,20 @@ public class MultiSum extends MultiFunction {
     /**
      * Constructs MultiSum.
      *
-     * @param function1 first function
-     * @param function2 second function
-     * @param functions extra functions
+     * @param firstFunction the first function
+     * @param secondFunction the second function
+     * @param moreFunctions more functions
      */
-    public MultiSum(Function function1, Function function2, Function... functions) {
-        super('+', function1, function2, functions);
+    public MultiSum(Function firstFunction, Function secondFunction, Function... moreFunctions) {
+        super('+', firstFunction, secondFunction, moreFunctions);
     }
 
     @Override
     public MultiSum derivative() {
-        return new MultiSum(function1.derivative(), function2.derivative(), multiDerivative());
+        Function[] moreDerivativeFunctions = new Function[functions.length - 2];
+        for (int i = 0; i < moreDerivativeFunctions.length; i++) {
+            moreDerivativeFunctions[i] = functions[i + 2].derivative();
+        }
+        return new MultiSum(functions[0].derivative(), functions[1].derivative(), moreDerivativeFunctions);
     }
 }
