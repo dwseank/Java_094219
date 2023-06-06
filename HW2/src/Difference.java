@@ -1,17 +1,17 @@
 /** A function that is the difference of 2 functions. */
-public class Difference extends TwoFunction {
+public class Difference extends MultiFunction {
     /**
      * Constructs difference of 2 functions.
      *
-     * @param leftFunction the left function
-     * @param rightFunction the right function
+     * @param firstFunction the first function
+     * @param secondFunction the second function
      */
-    public Difference(Function leftFunction, Function rightFunction) {
-        super('-', leftFunction, rightFunction);
+    public Difference(Function firstFunction, Function secondFunction) {
+        super('-', firstFunction, secondFunction);
     }
 
     @Override
     public Difference derivative() {
-        return new Difference(function1.derivative(), function2.derivative());
+        return new Difference(functions[0].derivative(), functions[1].derivative());
     }
 }
