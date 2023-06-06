@@ -3,42 +3,45 @@ public class MultiProduct extends MultiFunction {
     /**
      * Constructs MultiProduct.
      *
-     * @param function1 first function
-     * @param function2 second function
-     * @param functions extra functions
+     * @param firstFunction the first function
+     * @param secondFunction the second function
+     * @param moreFunctions more functions
      */
-    public MultiProduct(Function function1, Function function2, Function... functions) {
-        super('*', function1, function2, functions);
+    public MultiProduct(Function firstFunction, Function secondFunction, Function... moreFunctions) {
+        super('*', firstFunction, secondFunction, moreFunctions);
     }
 
     @Override
     public MultiSum derivative() {
-        MultiProduct functionToSum1 = new MultiProduct(function1.derivative(), function2 , functions); // Derivative on first function
-        MultiProduct functionToSum2 = new MultiProduct(function2.derivative(), function1 , functions); // Derivative on second function
+        Function[] otherFunctions = excludeFunction(1); // Excludes functions[0] and functions[1]
 
-        Function[] functionsToSum = new Function[functions.length]; // Derivative on extra functions
-        for (int i = 0; i < functions.length; i++) {
-            Function[] otherFunctions = excludeFunction(i); // Get extra functions without the derivative function
-            functionsToSum[i] = new MultiProduct(functions[i].derivative(), function1, otherFunctions); // Add another MultiProduct for the MultiSum
+        MultiProduct firstFunctionToSum = new MultiProduct(functions[0].derivative(), functions[1], otherFunctions); // Derivative on first function
+        MultiProduct secondFunctionToSum = new MultiProduct(functions[1].derivative(), functions[0], otherFunctions); // Derivative on second function
+
+        MultiProduct[] moreFunctionsToSum = new MultiProduct[functions.length - 2];
+        for (int i = 2; i < functions.length; i++) {
+            otherFunctions = excludeFunction(i); // Excludes functions[0] and functions[i]
+            moreFunctionsToSum[i - 2] = new MultiProduct(functions[i].derivative(), functions[0], otherFunctions); // Derivative on more functions
         }
-        return new MultiSum(functionToSum1, functionToSum2, functionsToSum); // MultiSum all MultiProducts
+        return new MultiSum(firstFunctionToSum, secondFunctionToSum, moreFunctionsToSum); // MultiSum all MultiProducts
     }
 
     /**
-     * Returns all extra functions excluding the function at the specified index.
-     * Reserves index 0 for function2.
+     * Returns an array of functions without the function at the specified index.
+     * Also excludes functions[0].
+     * Used as a helper method for derivative().
      *
      * @param index the index of the function to exclude
      * @return array of all other functions
      */
     private Function[] excludeFunction(int index) {
-        Function[] otherFunctions = new Function[functions.length];
-        otherFunctions[0] = function2;
-        for (int i = 0; i < functions.length - 1; i++) {
-            if (i < index) {
-                otherFunctions[i + 1] = functions[i];
+        Function[] otherFunctions = new Function[functions.length - 2];
+        for (int i = 0; i < otherFunctions.length; i++) {
+            // Checks if current function is before or after the function at the specified index
+            if (i < index - 1) {
+                otherFunctions[i] = functions[i + 1]; // Before skipping the function
             } else {
-                otherFunctions[i + 1] = functions[i + 1];
+                otherFunctions[i] = functions[i + 2]; // After skipping the function
             }
         }
         return otherFunctions;
