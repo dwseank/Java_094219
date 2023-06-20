@@ -60,27 +60,6 @@ public class Playlist implements Cloneable, FilteredSongIterable, OrderedSongIte
     }
 
     /**
-     * Performs a deep copy on the playlist.
-     *
-     * @return a clone of the playlist
-     */
-    @Override
-    public Playlist clone() {
-        try {
-            Playlist playlistClone = (Playlist) super.clone();
-            playlistClone.songs = (ArrayList<Song>) songs.clone();
-            playlistClone.filter = filter.clone();
-            int size = songs.size();
-            for (int i = 0; i < size; i++) {
-                playlistClone.songs.set(i, songs.get(i).clone());
-            }
-            return playlistClone;
-        } catch (CloneNotSupportedException e) {
-            return null;
-        }
-    }
-
-    /**
      * Checks if two playlists are equal.
      * Playlists are equal if they contain the same songs.
      *
@@ -118,7 +97,48 @@ public class Playlist implements Cloneable, FilteredSongIterable, OrderedSongIte
         return hash;
     }
 
+    /**
+     * Performs a deep copy on the playlist.
+     *
+     * @return a clone of the playlist
+     */
+    @Override
+    public Playlist clone() {
+        try {
+            Playlist playlistClone = (Playlist) super.clone();
+            playlistClone.songs = (ArrayList<Song>) songs.clone();
+            playlistClone.filter = filter.clone();
+            int size = songs.size();
+            for (int i = 0; i < size; i++) {
+                playlistClone.songs.set(i, songs.get(i).clone());
+            }
+            return playlistClone;
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
 
+    @Override
+    public void filterArtist(String artist) {
+        filter.setArtist(artist);
+    }
+
+    @Override
+    public void filterGenre(Song.Genre genre) {
+        filter.setGenre(genre);
+    }
+
+    @Override
+    public void filterDuration(int maxDuration) {
+        filter.setDuration(maxDuration);
+    }
+
+    @Override
+    public void setScanningOrder(ScanningOrder order) {
+        this.order = order;
+    }
+
+    
     /**
      * Returns an iterator over elements of type Song.
      *
@@ -173,26 +193,5 @@ public class Playlist implements Cloneable, FilteredSongIterable, OrderedSongIte
         public Song next() {
             return filteredSongs.get(index++);
         }
-    }
-
-
-    @Override
-    public void filterArtist(String artist) {
-        filter.setArtist(artist);
-    }
-
-    @Override
-    public void filterGenre(Song.Genre genre) {
-        filter.setGenre(genre);
-    }
-
-    @Override
-    public void filterDuration(int maxDuration) {
-        filter.setDuration(maxDuration);
-    }
-
-    @Override
-    public void setScanningOrder(ScanningOrder order) {
-        this.order = order;
     }
 }
