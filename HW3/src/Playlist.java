@@ -47,16 +47,14 @@ public class Playlist implements Cloneable, FilteredSongIterable, OrderedSongIte
      */
     @Override
     public String toString() {
-        if (songs.size() == 0) {
-            return "[]";
-        }
-        String str = "[";
-        for (Song song : songs) {
+        String str = "";
+        for (Song song: songs) {
             str += "(" + song + ")" + ", ";
         }
-        str = str.substring(0, str.length() - 2); // Remove last ", "
-        str += "]";
-        return str;
+        if (!str.isEmpty()) {
+            str = str.substring(0, str.length() - 2); // Remove last ", "
+        }
+        return "[" + str + "]";
     }
 
     /**
@@ -157,7 +155,8 @@ public class Playlist implements Cloneable, FilteredSongIterable, OrderedSongIte
         /**
          * Constructs a PlaylistIterator.
          * Creates a filtered and sorted song list based on the filter and order parameters in the playlist.
-         * This list is used to iterate on select songs in the playlist in a specific order in an enhanced for loop.
+         * This list is used to iterate on select songs in the playlist in a specific order in an enhanced for loop
+         * based on filter and order criteria.
          */
         private PlaylistIterator() {
             filteredSongs = new ArrayList<>();
