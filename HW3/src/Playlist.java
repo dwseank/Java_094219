@@ -148,7 +148,7 @@ public class Playlist implements Cloneable, FilteredSongIterable, OrderedSongIte
     }
 
     /** Iterator for Playlist */
-    public class PlaylistIterator implements Iterator<Song> {
+    private class PlaylistIterator implements Iterator<Song> {
         private final ArrayList<Song> filteredSongs;
         private int index;
 
