@@ -121,7 +121,7 @@ public class ArrayStack<E extends Cloneable> implements Stack<E> {
     }
 
     /** Iterator for ArrayStack */
-    public class StackIterator implements Iterator<E> {
+    private class StackIterator implements Iterator<E> {
         private int index;
 
         /** Constructs a StackIterator */
