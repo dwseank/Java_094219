@@ -12,6 +12,10 @@ public class PathFromRoot {
         if (str.isEmpty()) {
             return true;
         }
+        // Check if reached path end before string end
+        if (root == null) {
+            return false;
+        }
         // Check if the current node contains the first character
         if (root.getData().equals(str.charAt(0))) {
             // Check if the left or the right subtree contains a valid path for the rest of the string
