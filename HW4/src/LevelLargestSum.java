@@ -14,7 +14,7 @@ public class LevelLargestSum {
             return -1;
         }
         int sum = 0;
-        int largestSum = sum;
+        int largestSum = root.getData();
         int level = 0;
         int largestSumLevel = level;
 
